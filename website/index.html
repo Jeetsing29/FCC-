@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cloud-Based Website Hosting and Monitoring System Using AWS | Fundamentals of Cloud Computing</title>
+  <meta name="description"
+    content="A college course project for Fundamentals of Cloud Computing demonstrating cloud-based website hosting, EC2 virtual server administration, Apache web server, and CloudWatch system monitoring.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- Sticky Navigation Bar -->
+  <header class="navbar-wrapper" id="navbarWrapper">
+    <div class="nav-container">
+      <a href="#home" class="nav-brand" aria-label="Project Homepage">
+        <div class="brand-logo-icon">☁️</div>
+        <div class="brand-text-group">
+          <span class="brand-name">AWS Cloud Hosting</span>
+          <span class="brand-sub">Fundamentals of Cloud Computing</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="nav-menu" id="navMenu" aria-label="Main Navigation">
+        <ul class="nav-list">
+          <li><a href="#home" class="nav-link active">Home</a></li>
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#objectives" class="nav-link">Objectives</a></li>
+          <li><a href="#services" class="nav-link">AWS Services</a></li>
+          <li><a href="#architecture" class="nav-link">Architecture</a></li>
+          <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
+          <li><a href="#monitoring-demo" class="nav-link">Live Monitor</a></li>
+          <li><a href="#project-info" class="nav-link">Project Info</a></li>
+        </ul>
+        <div class="mobile-nav-cta">
+          <a href="#monitoring-demo" class="btn btn-primary btn-sm mobile-cta-link">
+            <span class="live-dot" aria-hidden="true"></span> View Live Telemetry Demo
+          </a>
+        </div>
+      </nav>
+
+      <!-- Right Action / Mobile Toggle -->
+      <div class="nav-actions">
+        <a href="#monitoring-demo" class="btn btn-sm btn-nav-cta">
+          <span class="live-dot" aria-hidden="true"></span> Live Demo
+        </a>
+        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navMenu">
+          <span class="bar bar-1"></span>
+          <span class="bar bar-2"></span>
+          <span class="bar bar-3"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Section: Hero -->
+    <section class="hero-section" id="home">
+      <div class="content-container">
+        <div class="hero-grid">
+          <div class="hero-content">
+            <div class="badge-pill">
+              <span class="status-indicator" aria-hidden="true"></span>
+              <span>B.Tech Course Project &bull; Fundamentals of Cloud Computing</span>
+            </div>
+
+            <h1 class="hero-title">
+              Cloud-Based Website Hosting &amp; Monitoring System <span class="accent-title">Using AWS</span>
+            </h1>
+
+            <p class="hero-lead">
+              A comprehensive hands-on cloud engineering project demonstrating the provisioning, secure hosting,
+              and operational monitoring of a web infrastructure on Amazon Web Services using EC2, Apache, and CloudWatch.
+            </p>
+
+            <div class="hero-cta-group">
+              <a href="#about" class="btn btn-primary btn-lg">
+                <span>Explore Project</span>
+                <span class="btn-arrow" aria-hidden="true">&rarr;</span>
+              </a>
+              <a href="#architecture" class="btn btn-secondary btn-lg">
+                <span class="icon-space" aria-hidden="true">🏗️</span> View Architecture
+              </a>
+            </div>
+
+            <!-- Quick Service Badges -->
+            <div class="hero-tech-pills">
+              <span class="tech-pill"><span class="pill-dot"></span>Amazon EC2 (t3.micro)</span>
+              <span class="tech-pill"><span class="pill-dot"></span>Apache HTTP Server</span>
+              <span class="tech-pill"><span class="pill-dot"></span>Amazon CloudWatch</span>
+              <span class="tech-pill"><span class="pill-dot"></span>Security Groups</span>
+              <span class="tech-pill"><span class="pill-dot"></span>Ubuntu 22.04 LTS</span>
+            </div>
+          </div>
+
+          <!-- Hero Graphic / Live Preview Card -->
+          <div class="hero-preview-col">
+            <div class="cloud-preview-card">
+              <div class="card-top-header">
+                <div class="window-dots">
+                  <span class="win-dot red"></span>
+                  <span class="win-dot yellow"></span>
+                  <span class="win-dot green"></span>
+                </div>
+                <div class="terminal-address">http://13.204.82.29 &bull; ap-south-1</div>
+                <div class="server-badge-live">LIVE</div>
+              </div>
+
+              <div class="card-top-body">
+                <div class="metric-row-hero">
+                  <div class="metric-mini">
+                    <span class="mini-label">Instance Type</span>
+                    <span class="mini-value text-accent">t3.micro</span>
+                    <span class="mini-sub">AWS Free Tier</span>
+                  </div>
+                  <div class="metric-mini">
+                    <span class="mini-label">Web Engine</span>
+                    <span class="mini-value text-cyan">Apache 2.4</span>
+                    <span class="mini-sub">Port 80 (HTTP)</span>
+                  </div>
+                  <div class="metric-mini">
+                    <span class="mini-label">Status Check</span>
+                    <span class="mini-value text-green">2 / 2 Passed</span>
+                    <span class="mini-sub">System &amp; Instance</span>
+                  </div>
+                </div>
+
+                <div class="terminal-box-hero">
+                  <div class="term-line"><span class="term-prompt">$</span> aws ec2 describe-instances --filters "Name=tag:Name,Values=fcc-web-server"</div>
+                  <div class="term-output"><span class="out-key">State:</span> <span class="out-val text-green">running</span> | <span class="out-key">Region:</span> ap-south-1 | <span class="out-key">OS:</span> Ubuntu 22.04</div>
+                  <div class="term-line"><span class="term-prompt">$</span> curl -Is http://localhost | head -n 1</div>
+                  <div class="term-output text-green">HTTP/1.1 200 OK</div>
+                </div>
+
+                <div class="hero-card-footer">
+                  <div class="footer-stat">
+                    <span class="stat-bullet green"></span>
+                    <span>Apache HTTP Daemon Active</span>
+                  </div>
+                  <div class="footer-stat">
+                    <span class="stat-bullet blue"></span>
+                    <span>CloudWatch Metrics Enabled</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Stats Row -->
+        <div class="hero-stats-row">
+          <div class="stat-box">
+            <div class="stat-box-icon">☁️</div>
+            <div class="stat-box-data">
+              <span class="stat-number">AWS EC2</span>
+              <span class="stat-title">Virtual Cloud Compute</span>
+              <span class="stat-desc">Ubuntu 22.04 LTS instance hosted in AWS Mumbai</span>
+            </div>
+          </div>
+
+          <div class="stat-box">
+            <div class="stat-box-icon">🌐</div>
+            <div class="stat-box-data">
+              <span class="stat-number">Apache 2.4</span>
+              <span class="stat-title">Production Web Server</span>
+              <span class="stat-desc">High-speed HTTP static delivery on Port 80</span>
+            </div>
+          </div>
+
+          <div class="stat-box">
+            <div class="stat-box-icon">🛡️</div>
+            <div class="stat-box-data">
+              <span class="stat-number">Security Groups</span>
+              <span class="stat-title">Stateful Firewall</span>
+              <span class="stat-desc">Public Port 80 with restricted Port 22 SSH</span>
+            </div>
+          </div>
+
+          <div class="stat-box">
+            <div class="stat-box-icon">📈</div>
+            <div class="stat-box-data">
+              <span class="stat-number">CloudWatch</span>
+              <span class="stat-title">Real-Time Observability</span>
+              <span class="stat-desc">Telemetry metrics and automated alarm triggers</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: About -->
+    <section class="section-block" id="about">
+      <div class="content-container">
+        <div class="section-head text-center">
+          <span class="section-pill">Project Background</span>
+          <h2 class="section-heading">Bridging Local Code to Production Cloud</h2>
+          <p class="section-subtext">
+            Understanding why modern cloud hosting replaces traditional on-premise development for reliable web deployment.
+          </p>
+        </div>
+
+        <div class="comparison-grid">
+          <div class="comparison-card comp-local">
+            <div class="comp-badge bad">Local Laptop Hosting</div>
+            <h3 class="comp-title">Traditional / Local Environment</h3>
+            <ul class="comp-list">
+              <li>❌ <strong>Zero High Availability:</strong> Website terminates immediately when the laptop goes to sleep or loses power.</li>
+              <li>❌ <strong>No Public Access:</strong> Localhost endpoints (e.g. <code>localhost:8000</code>) are inaccessible to external visitors without router port forwarding.</li>
+              <li>❌ <strong>No Health Monitoring:</strong> Hardware crashes and high memory usage go unnoticed without telemetry.</li>
+              <li>❌ <strong>High Vulnerability:</strong> Exposing personal home networks introduces severe security risks.</li>
+            </ul>
+          </div>
+
+          <div class="comparison-card comp-cloud">
+            <div class="comp-badge good">AWS Cloud Architecture</div>
+            <h3 class="comp-title">Cloud-Based Hosting System</h3>
+            <ul class="comp-list">
+              <li>✅ <strong>24/7 Global Uptime:</strong> AWS EC2 virtual machines guarantee continuous availability backed by Amazon infrastructure.</li>
+              <li>✅ <strong>Global Public IPv4:</strong> Reachable anywhere across the internet via standard web ports (Port 80 HTTP).</li>
+              <li>✅ <strong>Automated Observability:</strong> Amazon CloudWatch actively tracks CPU usage and triggers threshold alerts.</li>
+              <li>✅ <strong>Virtual Firewalls:</strong> AWS Security Groups enforce granular ingress/egress filtering rules.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Project Objectives -->
+    <section class="section-block bg-elevated" id="objectives">
+      <div class="content-container">
+        <div class="section-head text-center">
+          <span class="section-pill">Core Milestones</span>
+          <h2 class="section-heading">Project Objectives</h2>
+          <p class="section-subtext">
+            Key academic and engineering goals completed as part of the Fundamentals of Cloud Computing curriculum.
+          </p>
+        </div>
+
+        <div class="objectives-grid">
+          <div class="obj-card">
+            <div class="obj-index">01</div>
+            <div class="obj-icon">🖥️</div>
+            <h3 class="obj-title">Provision Virtual Cloud Compute</h3>
+            <p class="obj-desc">
+              Launch and configure an Amazon EC2 instance running Ubuntu Linux in the <code>ap-south-1</code> (Mumbai) region under the AWS Free Tier.
+            </p>
+          </div>
+
+          <div class="obj-card">
+            <div class="obj-index">02</div>
+            <div class="obj-icon">⚙️</div>
+            <h3 class="obj-title">Configure Apache Web Server</h3>
+            <p class="obj-desc">
+              Install and manage the Apache HTTP Server (<code>apache2</code>), configuring the document root at <code>/var/www/html</code> to serve website files.
+            </p>
+          </div>
+
+          <div class="obj-card">
+            <div class="obj-index">03</div>
+            <div class="obj-icon">🛡️</div>
+            <h3 class="obj-title">Implement Security Group Firewalls</h3>
+            <p class="obj-desc">
+              Author custom Security Group inbound rules allowing global web traffic on Port 80 while locking SSH port 22 to administrator IP address.
+            </p>
+          </div>
+
+          <div class="obj-card">
+            <div class="obj-index">04</div>
+            <div class="obj-icon">📈</div>
+            <h3 class="obj-title">Establish CloudWatch Observability</h3>
+            <p class="obj-desc">
+              Track CPU Utilization and 2/2 reachability checks, provisioning a CloudWatch Metric Alarm for proactive incident alerting.
+            </p>
+          </div>
+
+          <div class="obj-card">
+            <div class="obj-index">05</div>
+            <div class="obj-icon">🐧</div>
+            <h3 class="obj-title">Remote Linux Server Administration</h3>
+            <p class="obj-desc">
+              Perform secure system configuration, file management, and systemd service control over encrypted SSH using asymmetric key pairs.
+            </p>
+          </div>
+
+          <div class="obj-card">
+            <div class="obj-index">06</div>
+            <div class="obj-icon">🚀</div>
+            <h3 class="obj-title">Automate Deployment with Shell Scripting</h3>
+            <p class="obj-desc">
+              Author a reproducible deployment script (<code>deploy.sh</code>) to automate package installation, permissions, and service verification.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: AWS Services Used -->
+    <section class="section-block" id="services">
+      <div class="content-container">
+        <div class="section-head text-center">
+          <span class="section-pill">Infrastructure Stack</span>
+          <h2 class="section-heading">AWS &amp; Core Cloud Services</h2>
+          <p class="section-subtext">
+            Key cloud services and developer technologies utilized to deliver the hosting and monitoring platform.
+          </p>
+        </div>
+
+        <div class="services-cards-grid">
+          <!-- Card 1: EC2 -->
+          <div class="service-feature-card">
+            <div class="service-card-top">
+              <div class="service-icon-box ec2-bg">🖥️</div>
+              <span class="service-type-badge">Compute &bull; Active</span>
+            </div>
+            <h3 class="service-name">Amazon EC2</h3>
+            <p class="service-summary">
+              Elastic Compute Cloud provides virtual cloud servers with customizable compute, memory, and networking.
+            </p>
+            <div class="service-spec-list">
+              <div class="spec-row"><span class="spec-key">Instance Type:</span> <span class="spec-val">t3.micro (2 vCPU, 1 GiB)</span></div>
+              <div class="spec-row"><span class="spec-key">Operating System:</span> <span class="spec-val">Ubuntu 22.04 LTS (Jammy)</span></div>
+              <div class="spec-row"><span class="spec-key">Role:</span> <span class="spec-val">Hosts Apache &amp; web content</span></div>
+            </div>
+          </div>
+
+          <!-- Card 2: Apache HTTP Server -->
+          <div class="service-feature-card">
+            <div class="service-card-top">
+              <div class="service-icon-box apache-bg">🪶</div>
+              <span class="service-type-badge">Web Server &bull; Active</span>
+            </div>
+            <h3 class="service-name">Apache HTTP Server</h3>
+            <p class="service-summary">
+              Open-source HTTP server daemon delivering high concurrency and stability for serving static assets.
+            </p>
+            <div class="service-spec-list">
+              <div class="spec-row"><span class="spec-key">Daemon Service:</span> <span class="spec-val">apache2 (systemd managed)</span></div>
+              <div class="spec-row"><span class="spec-key">Listening Port:</span> <span class="spec-val">Port 80 (HTTP)</span></div>
+              <div class="spec-row"><span class="spec-key">Document Root:</span> <span class="spec-val">/var/www/html/</span></div>
+            </div>
+          </div>
+
+          <!-- Card 3: CloudWatch -->
+          <div class="service-feature-card">
+            <div class="service-card-top">
+              <div class="service-icon-box cw-bg">📊</div>
+              <span class="service-type-badge">Monitoring &bull; Active</span>
+            </div>
+            <h3 class="service-name">Amazon CloudWatch</h3>
+            <p class="service-summary">
+              Centralized observability dashboard tracking operational health metrics, CPU utilization, and alarms.
+            </p>
+            <div class="service-spec-list">
+              <div class="spec-row"><span class="spec-key">Metric Monitored:</span> <span class="spec-val">CPUUtilization (AWS/EC2)</span></div>
+              <div class="spec-row"><span class="spec-key">Alarm Threshold:</span> <span class="spec-val">&gt; 80% for 5 minutes</span></div>
+              <div class="spec-row"><span class="spec-key">Status Checks:</span> <span class="spec-val">System &amp; Instance Reachability</span></div>
+            </div>
+          </div>
+
+          <!-- Card 4: Linux & SSH -->
+          <div class="service-feature-card">
+            <div class="service-card-top">
+              <div class="service-icon-box linux-bg">🐧</div>
+              <span class="service-type-badge">Administration &bull; Active</span>
+            </div>
+            <h3 class="service-name">Linux &amp; SSH</h3>
+            <p class="service-summary">
+              Secure remote terminal access and Linux system administration using cryptographic asymmetric key pairs.
+            </p>
+            <div class="service-spec-list">
+              <div class="spec-row"><span class="spec-key">Protocol:</span> <span class="spec-val">SSH (Secure Shell) Port 22</span></div>
+              <div class="spec-row"><span class="spec-key">Authentication:</span> <span class="spec-val">2048-bit RSA .pem key</span></div>
+              <div class="spec-row"><span class="spec-key">Security Rule:</span> <span class="spec-val">Restricted to administrator IP</span></div>
+            </div>
+          </div>
+
+          <!-- Card 5: Amazon S3 -->
+          <div class="service-feature-card">
+            <div class="service-card-top">
+              <div class="service-icon-box s3-bg">🪣</div>
+              <span class="service-type-badge future-badge">Storage &bull; Future Scope</span>
+            </div>
+            <h3 class="service-name">Amazon S3</h3>
+            <p class="service-summary">
+              Scalable cloud object storage designed for 99.999999999% durability, asset storage, and disaster recovery backups.
+            </p>
+            <div class="service-spec-list">
+              <div class="spec-row"><span class="spec-key">Storage Class:</span> <span class="spec-val">S3 Standard Object Storage</span></div>
+              <div class="spec-row"><span class="spec-key">Planned Role:</span> <span class="spec-val">Decoupled media &amp; server backups</span></div>
+              <div class="spec-row"><span class="spec-key">Integration:</span> <span class="spec-val">Automated CLI sync workflows</span></div>
+            </div>
+          </div>
+
+          <!-- Card 6: AWS IAM -->
+          <div class="service-feature-card">
+            <div class="service-card-top">
+              <div class="service-icon-box iam-bg">🔑</div>
+              <span class="service-type-badge future-badge">Identity &bull; Future Scope</span>
+            </div>
+            <h3 class="service-name">AWS IAM</h3>
+            <p class="service-summary">
+              Identity and Access Management for granular role-based permissions adhering to the principle of least privilege.
+            </p>
+            <div class="service-spec-list">
+              <div class="spec-row"><span class="spec-key">Security Concept:</span> <span class="spec-val">Principle of Least Privilege</span></div>
+              <div class="spec-row"><span class="spec-key">Planned Role:</span> <span class="spec-val">EC2 Instance Profile (Passwordless)</span></div>
+              <div class="spec-row"><span class="spec-key">Policy Scope:</span> <span class="spec-val">Restricted S3 backup access</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: System Architecture -->
+    <section class="section-block bg-elevated" id="architecture">
+      <div class="content-container">
+        <div class="section-head text-center">
+          <span class="section-pill">System Blueprint</span>
+          <h2 class="section-heading">System Architecture &amp; Request Flow</h2>
+          <p class="section-subtitle">
+            Visualizing the end-to-end request lifecycle and security boundaries in AWS.
+          </p>
+        </div>
+
+        <div class="architecture-visual-board">
+          <div class="board-header">
+            <div class="board-dots">
+              <span class="b-dot red"></span>
+              <span class="b-dot yellow"></span>
+              <span class="b-dot green"></span>
+            </div>
+            <span class="board-title">AWS Infrastructure Topology &bull; ap-south-1 (Mumbai)</span>
+          </div>
+
+          <div class="board-body">
+            <!-- Visual Flow Stages -->
+            <div class="arch-flow-row">
+              <!-- Step 1: User -->
+              <div class="arch-node-box">
+                <div class="node-icon-circle">👤</div>
+                <h4 class="node-heading">Client Browser</h4>
+                <p class="node-text">End User Request</p>
+                <span class="node-pill">HTTP Client</span>
+              </div>
+
+              <div class="flow-connector">
+                <span class="flow-line"></span>
+                <span class="flow-tag">Port 80</span>
+              </div>
+
+              <!-- Step 2: Internet -->
+              <div class="arch-node-box">
+                <div class="node-icon-circle">🌐</div>
+                <h4 class="node-heading">Public Internet</h4>
+                <p class="node-text">DNS &amp; IPv4 Routing</p>
+                <span class="node-pill">13.204.82.29</span>
+              </div>
+
+              <div class="flow-connector">
+                <span class="flow-line"></span>
+                <span class="flow-tag">Inbound</span>
+              </div>
+
+              <!-- Step 3: Security Group -->
+              <div class="arch-node-box arch-highlight-cyan">
+                <div class="node-icon-circle">🛡️</div>
+                <h4 class="node-heading">Security Group</h4>
+                <p class="node-text">Stateful Firewall</p>
+                <span class="node-pill pill-cyan">fcc-web-sg</span>
+              </div>
+
+              <div class="flow-connector">
+                <span class="flow-line"></span>
+                <span class="flow-tag">Allowed</span>
+              </div>
+
+              <!-- Step 4: EC2 Instance -->
+              <div class="arch-node-box arch-highlight-aws">
+                <div class="node-icon-circle">🖥️</div>
+                <h4 class="node-heading">Amazon EC2</h4>
+                <p class="node-text">Ubuntu 22.04 LTS</p>
+                <span class="node-pill pill-aws">t3.micro</span>
+              </div>
+
+              <div class="flow-connector">
+                <span class="flow-line"></span>
+                <span class="flow-tag">Internal</span>
+              </div>
+
+              <!-- Step 5: Apache -->
+              <div class="arch-node-box">
+                <div class="node-icon-circle">🪶</div>
+                <h4 class="node-heading">Apache 2</h4>
+                <p class="node-text">Web Server Daemon</p>
+                <span class="node-pill">/var/www/html</span>
+              </div>
+
+              <div class="flow-connector">
+                <span class="flow-line"></span>
+                <span class="flow-tag">Serves</span>
+              </div>
+
+              <!-- Step 6: Website -->
+              <div class="arch-node-box arch-highlight-green">
+                <div class="node-icon-circle">📄</div>
+                <h4 class="node-heading">Live Website</h4>
+                <p class="node-text">HTML / CSS / JS</p>
+                <span class="node-pill pill-green">200 OK</span>
+              </div>
+            </div>
+
+            <!-- Architecture Accompanying Pillars -->
+            <div class="architecture-pillars">
+              <div class="arch-pillar-card">
+                <div class="pillar-icon-row">
+                  <span class="pillar-icon">📊</span>
+                  <h4>Amazon CloudWatch</h4>
+                </div>
+                <p>
+                  Continuously observes hypervisor-level metrics for instance <code>i-0875444197e8dba94</code>.
+                  Tracks CPUUtilization and triggers the <code>HighCPUUtilization-fcc-web-server</code> alert if usage exceeds 80%.
+                </p>
+              </div>
+
+              <div class="arch-pillar-card">
+                <div class="pillar-icon-row">
+                  <span class="pillar-icon">🛡️</span>
+                  <h4>Security Group Hardening</h4>
+                </div>
+                <p>
+                  Acts as the first line of defense. Public traffic on Port 80 is forwarded to Apache, while administrative
+                  SSH access on Port 22 is restricted exclusively to the administrator's authorized IP address.
+                </p>
+              </div>
+
+              <div class="arch-pillar-card">
+                <div class="pillar-icon-row">
+                  <span class="pillar-icon">🪣</span>
+                  <h4>Amazon S3 &amp; IAM (Planned)</h4>
+                </div>
+                <p>
+                  Architectural extension points for future semesters: Amazon S3 for off-site disaster recovery backups
+                  and an IAM EC2 Instance Profile for keyless, credential-free AWS API authorization.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: How It Works -->
+    <section class="section-block" id="how-it-works">
+      <div class="content-container">
+        <div class="section-head text-center">
+          <span class="section-pill">Engineering Lifecycle</span>
+          <h2 class="section-heading">How It Works</h2>
+          <p class="section-subtitle">
+            A structured 5-step operational pipeline from local development to cloud production monitoring.
+          </p>
+        </div>
+
+        <div class="workflow-timeline">
+          <!-- Step 1 -->
+          <div class="timeline-step-card">
+            <div class="timeline-marker">
+              <span class="step-num">1</span>
+            </div>
+            <div class="timeline-body">
+              <div class="step-meta">
+                <span class="step-badge">Phase 1</span>
+                <span class="step-topic">Source Code &amp; Version Control</span>
+              </div>
+              <h3 class="step-title">Local Development &amp; Git Repository</h3>
+              <p class="step-desc">
+                The website is developed using standard, lightweight HTML5, CSS3, and vanilla JavaScript without heavy external frameworks.
+                Code revisions are version-controlled using Git and pushed to GitHub for collaborative backup.
+              </p>
+              <div class="code-snippet-box">
+                <code>git add . &amp;&amp; git commit -m "feat: design modern cloud website" &amp;&amp; git push</code>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="timeline-step-card">
+            <div class="timeline-marker">
+              <span class="step-num">2</span>
+            </div>
+            <div class="timeline-body">
+              <div class="step-meta">
+                <span class="step-badge">Phase 2</span>
+                <span class="step-topic">Cloud Compute &amp; Networking</span>
+              </div>
+              <h3 class="step-title">EC2 Provisioning &amp; Security Group Hardening</h3>
+              <p class="step-desc">
+                An Amazon EC2 <code>t3.micro</code> virtual instance running Ubuntu 22.04 LTS is launched in the Mumbai region.
+                A custom Security Group (<code>fcc-web-sg</code>) is attached, permitting incoming web requests on Port 80 and restricting SSH Port 22 to administrator IP.
+              </p>
+              <div class="code-snippet-box">
+                <code>aws ec2 run-instances --image-id ami-0fa52f1a01deb1658 --instance-type t3.micro --security-group-ids sg-0464...</code>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="timeline-step-card">
+            <div class="timeline-marker">
+              <span class="step-num">3</span>
+            </div>
+            <div class="timeline-body">
+              <div class="step-meta">
+                <span class="step-badge">Phase 3</span>
+                <span class="step-topic">Web Server Automation</span>
+              </div>
+              <h3 class="step-title">Apache Installation &amp; File Deployment</h3>
+              <p class="step-desc">
+                The automated deployment script (<code>deploy.sh</code>) executes on the instance via SSH. It installs the Apache HTTP server,
+                transfers website assets into <code>/var/www/html/</code>, assigns <code>www-data</code> permissions, and verifies service uptime.
+              </p>
+              <div class="code-snippet-box">
+                <code>chmod +x deploy.sh &amp;&amp; ./deploy.sh # Automatically configures Apache &amp; deploys web root</code>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="timeline-step-card">
+            <div class="timeline-marker">
+              <span class="step-num">4</span>
+            </div>
+            <div class="timeline-body">
+              <div class="step-meta">
+                <span class="step-badge">Phase 4</span>
+                <span class="step-topic">Client Delivery</span>
+              </div>
+              <h3 class="step-title">Public HTTP Web Delivery</h3>
+              <p class="step-desc">
+                Users open the EC2 public IPv4 address (<code>http://13.204.82.29/</code>) in any browser. Apache processes the HTTP request,
+                retrieves files from the disk, and returns a <code>200 OK</code> response with complete styled web content.
+              </p>
+              <div class="code-snippet-box">
+                <code>curl -I http://13.204.82.29/ # Returns HTTP/1.1 200 OK with Apache/2.4 (Ubuntu) headers</code>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 5 -->
+          <div class="timeline-step-card">
+            <div class="timeline-marker">
+              <span class="step-num">5</span>
+            </div>
+            <div class="timeline-body">
+              <div class="step-meta">
+                <span class="step-badge">Phase 5</span>
+                <span class="step-topic">Observability</span>
+              </div>
+              <h3 class="step-title">CloudWatch Real-Time Telemetry &amp; Alarms</h3>
+              <p class="step-desc">
+                Amazon CloudWatch polls hypervisor-level CPU utilization and status checks every 5 minutes.
+                The <code>HighCPUUtilization-fcc-web-server</code> alarm actively monitors for traffic spikes to ensure high availability.
+              </p>
+              <div class="code-snippet-box">
+                <code>aws cloudwatch put-metric-alarm --alarm-name HighCPUUtilization-fcc-web-server --threshold 80</code>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Technology Stack -->
+    <section class="section-block bg-elevated" id="tech-stack">
+      <div class="content-container">
+        <div class="section-head text-center">
+          <span class="section-pill">Technology Stack</span>
+          <h2 class="section-heading">Core Technologies &amp; Tools</h2>
+          <p class="section-subtitle">
+            Reliable, lightweight technologies chosen for fast cloud deployment and low resource overhead.
+          </p>
+        </div>
+
+        <div class="tech-grid">
+          <div class="tech-card">
+            <div class="tech-card-icon">📄</div>
+            <h4 class="tech-name">HTML5</h4>
+            <p class="tech-role">Semantic structure &amp; accessible web hierarchy.</p>
+          </div>
+
+          <div class="tech-card">
+            <div class="tech-card-icon">🎨</div>
+            <h4 class="tech-name">Vanilla CSS3</h4>
+            <p class="tech-role">Responsive grid, glassmorphism &amp; cloud theme styling.</p>
+          </div>
+
+          <div class="tech-card">
+            <div class="tech-card-icon">⚡</div>
+            <h4 class="tech-name">Vanilla JavaScript</h4>
+            <p class="tech-role">Interactive live telemetry simulation &amp; mobile navigation.</p>
+          </div>
+
+          <div class="tech-card">
+            <div class="tech-card-icon">🐧</div>
+            <h4 class="tech-name">Ubuntu 22.04 LTS</h4>
+            <p class="tech-role">Linux operating system running on the AWS EC2 instance.</p>
+          </div>
+
+          <div class="tech-card">
+            <div class="tech-card-icon">🪶</div>
+            <h4 class="tech-name">Apache 2.4</h4>
+            <p class="tech-role">Production HTTP web server listening on Port 80.</p>
+          </div>
+
+          <div class="tech-card">
+            <div class="tech-card-icon">🔒</div>
+            <h4 class="tech-name">OpenSSH</h4>
+            <p class="tech-role">Asymmetric RSA key-based remote terminal administration.</p>
+          </div>
+
+          <div class="tech-card">
+            <div class="tech-card-icon">📜</div>
+            <h4 class="tech-name">Bash Scripting</h4>
+            <p class="tech-role">Automated <code>deploy.sh</code> execution for web root deployment.</p>
+          </div>
+
+          <div class="tech-card">
+            <div class="tech-card-icon">🐙</div>
+            <h4 class="tech-name">Git &amp; GitHub</h4>
+            <p class="tech-role">Distributed source version control and repository hosting.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Interactive Live Telemetry Simulator (Viva Feature) -->
+    <section class="section-block" id="monitoring-demo">
+      <div class="content-container">
+        <div class="section-head text-center">
+          <span class="section-pill">Interactive Live Demo</span>
+          <h2 class="section-heading">EC2 &amp; CloudWatch Telemetry Monitor</h2>
+          <p class="section-subtitle">
+            An interactive live simulation widget showing real-time instance metrics and CloudWatch alarm behavior for college presentations.
+          </p>
+        </div>
+
+        <div class="console-dashboard">
+          <div class="dashboard-topbar">
+            <div class="dashboard-title">
+              <span class="dash-icon">☁️</span>
+              <span class="dash-name">AWS Management Console &bull; Live Telemetry Dashboard</span>
+            </div>
+            <div class="dashboard-controls">
+              <button class="btn btn-sm btn-outline" id="refreshMetricsBtn" aria-label="Refresh telemetry data">
+                <span>🔄</span> Refresh Telemetry
+              </button>
+              <button class="btn btn-sm btn-primary" id="simulateSpikeBtn" aria-label="Simulate traffic spike">
+                <span>⚡</span> Simulate Traffic Spike
+              </button>
+            </div>
+          </div>
+
+          <!-- Banner Row -->
+          <div class="dashboard-instance-row">
+            <div class="inst-info-left">
+              <span class="inst-pulse" id="instanceStatePulse"></span>
+              <div>
+                <span class="inst-label">Instance ID</span>
+                <span class="inst-id" id="instanceIdText">i-0875444197e8dba94</span>
+              </div>
+            </div>
+
+            <div class="inst-tags-right">
+              <div class="inst-chip"><strong>State:</strong> <span class="badge-status-running" id="instanceStateBadge">running</span></div>
+              <div class="inst-chip"><strong>Type:</strong> t3.micro (Free Tier)</div>
+              <div class="inst-chip"><strong>Public IPv4:</strong> 13.204.82.29</div>
+              <div class="inst-chip"><strong>Region:</strong> ap-south-1 (Mumbai)</div>
+              <div class="inst-chip"><strong>Web Server:</strong> Apache/2.4 (Ubuntu)</div>
+            </div>
+          </div>
+
+          <!-- Metrics Row -->
+          <div class="metrics-grid">
+            <!-- CPU Card -->
+            <div class="telemetry-card" id="cpuCard">
+              <div class="telemetry-head">
+                <span class="metric-title">CPU Utilization</span>
+                <span class="status-pill status-ok" id="cpuAlarmBadge">OK (&lt; 80%)</span>
+              </div>
+              <div class="telemetry-value">
+                <span class="val-number" id="cpuNumber">14.8</span><span class="val-unit">%</span>
+              </div>
+              <div class="progress-track">
+                <div class="progress-bar" id="cpuProgress" style="width: 14.8%;"></div>
+              </div>
+              <div class="telemetry-foot">
+                <span>AWS/EC2 Metric</span>
+                <span id="cpuStatusText">Normal Operations</span>
+              </div>
+            </div>
+
+            <!-- Memory Card -->
+            <div class="telemetry-card">
+              <div class="telemetry-head">
+                <span class="metric-title">Memory Allocation</span>
+                <span class="status-pill status-ok">Optimal</span>
+              </div>
+              <div class="telemetry-value">
+                <span class="val-number" id="memNumber">31.2</span><span class="val-unit">%</span>
+              </div>
+              <div class="progress-track">
+                <div class="progress-bar progress-blue" id="memProgress" style="width: 31.2%;"></div>
+              </div>
+              <div class="telemetry-foot">
+                <span>319 MB / 1024 MB</span>
+                <span>1 GiB RAM Total</span>
+              </div>
+            </div>
+
+            <!-- Network Traffic Card -->
+            <div class="telemetry-card">
+              <div class="telemetry-head">
+                <span class="metric-title">Network In / Out</span>
+                <span class="status-pill status-ok">Active</span>
+              </div>
+              <div class="telemetry-value">
+                <span class="val-number" id="netNumber">1.82</span><span class="val-unit">MB/s</span>
+              </div>
+              <div class="progress-track">
+                <div class="progress-bar progress-cyan" id="netProgress" style="width: 25%;"></div>
+              </div>
+              <div class="telemetry-foot">
+                <span>HTTP Port 80 Traffic</span>
+                <span id="packetCount">1,420 pkts/s</span>
+              </div>
+            </div>
+
+            <!-- Status Check Card -->
+            <div class="telemetry-card">
+              <div class="telemetry-head">
+                <span class="metric-title">System Status Checks</span>
+                <span class="status-pill status-ok">Passed</span>
+              </div>
+              <div class="telemetry-value text-green">
+                <span class="val-number" id="healthNumber">2 / 2</span><span class="val-unit">Passed</span>
+              </div>
+              <div class="progress-track">
+                <div class="progress-bar progress-green" style="width: 100%;"></div>
+              </div>
+              <div class="telemetry-foot">
+                <span>System: Reachable</span>
+                <span>Instance: Reachable</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Console Terminal Logs -->
+          <div class="console-logs-wrapper">
+            <div class="logs-header">
+              <span class="log-title">CloudWatch Alarm &amp; Apache Event Telemetry Stream</span>
+              <span class="log-badge-clock" id="terminalClock">Live Stream Active</span>
+            </div>
+            <div class="logs-terminal-window" id="terminalLogs" role="region" aria-label="Terminal Event Logs">
+              <div class="log-entry"><span class="log-time">[14:20:05 UTC]</span> <span class="log-info">[INFO]</span> EC2 instance i-0875444197e8dba94 entered running state in ap-south-1.</div>
+              <div class="log-entry"><span class="log-time">[14:21:40 UTC]</span> <span class="log-success">[STATUS]</span> 2/2 EC2 System &amp; Instance reachability checks PASSED.</div>
+              <div class="log-entry"><span class="log-time">[14:22:48 UTC]</span> <span class="log-info">[APACHE]</span> Apache HTTP server (apache2) active on port 80. Document root /var/www/html.</div>
+              <div class="log-entry"><span class="log-time">[14:23:13 UTC]</span> <span class="log-success">[CLOUDWATCH]</span> Alarm 'HighCPUUtilization-fcc-web-server' transitioned to OK (CPU &lt; 80.0%).</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Course Labs & Evidence (Retaining existing functionality) -->
+    <section class="section-block bg-elevated" id="labs">
+      <div class="content-container">
+        <div class="section-head text-center">
+          <span class="section-pill">Hands-On Labs</span>
+          <h2 class="section-heading">Laboratory Modules &amp; Deliverables</h2>
+          <p class="section-subtitle">
+            Core practical coursework deliverables developed and documented throughout this course project.
+          </p>
+        </div>
+
+        <div class="labs-compact-grid">
+          <div class="lab-pill-card">
+            <div class="lab-card-header">
+              <span class="lab-badge">Lab 01</span>
+              <span class="lab-service-tag">Amazon S3</span>
+            </div>
+            <h4>Static Website Foundations</h4>
+            <p>Configured bucket hosting concepts, public access policies, and static web distribution delivery.</p>
+          </div>
+
+          <div class="lab-pill-card">
+            <div class="lab-card-header">
+              <span class="lab-badge">Lab 02</span>
+              <span class="lab-service-tag">AWS CLI</span>
+            </div>
+            <h4>AWS CLI Deployment Workflows</h4>
+            <p>Configured AWS credentials locally and automated cloud synchronization using <code>aws s3 sync</code>.</p>
+          </div>
+
+          <div class="lab-pill-card">
+            <div class="lab-card-header">
+              <span class="lab-badge">Lab 03</span>
+              <span class="lab-service-tag">AWS Budgets</span>
+            </div>
+            <h4>Cloud Financial Governance</h4>
+            <p>Provisioned monthly budget alert thresholds to enforce AWS Free Tier cost discipline.</p>
+          </div>
+
+          <div class="lab-pill-card">
+            <div class="lab-card-header">
+              <span class="lab-badge">Lab 04</span>
+              <span class="lab-service-tag">Amazon EC2</span>
+            </div>
+            <h4>EC2 Linux Administration</h4>
+            <p>Launched an Ubuntu EC2 server, managed SSH terminal access, and configured Apache HTTP daemon.</p>
+          </div>
+
+          <div class="lab-pill-card">
+            <div class="lab-card-header">
+              <span class="lab-badge">Lab 05</span>
+              <span class="lab-service-tag">CloudWatch</span>
+            </div>
+            <h4>Observability &amp; Alarm Setup</h4>
+            <p>Created metric dashboards, tracked CPU usage curves, and established operational alarm thresholds.</p>
+          </div>
+
+          <div class="lab-pill-card">
+            <div class="lab-card-header">
+              <span class="lab-badge">Lab 06</span>
+              <span class="lab-service-tag">GitHub Actions</span>
+            </div>
+            <h4>CI/CD &amp; Least-Privilege IAM</h4>
+            <p>Integrated automated repository synchronization authenticated via scoped, least-privilege IAM policies.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Contact / Project Info -->
+    <section class="section-block" id="project-info">
+      <div class="content-container">
+        <div class="section-head text-center">
+          <span class="section-pill">Project Information</span>
+          <h2 class="section-heading">Coursework &amp; Academic Credentials</h2>
+          <p class="section-subtitle">
+            Project submission details for the Fundamentals of Cloud Computing laboratory evaluation.
+          </p>
+        </div>
+
+        <div class="info-card-container">
+          <div class="academic-details-card">
+            <div class="academic-row">
+              <div class="academic-item">
+                <span class="item-label">Project Title</span>
+                <span class="item-value">Cloud-Based Website Hosting and Monitoring System Using AWS</span>
+              </div>
+              <div class="academic-item">
+                <span class="item-label">Course Title</span>
+                <span class="item-value">Fundamentals of Cloud Computing (FCC)</span>
+              </div>
+            </div>
+
+            <div class="academic-row">
+              <div class="academic-item">
+                <span class="item-label">Program &bull; Level</span>
+                <span class="item-value">Bachelor of Technology (B.Tech) &bull; Second Year</span>
+              </div>
+              <div class="academic-item">
+                <span class="item-label">Primary Cloud Provider</span>
+                <span class="item-value">Amazon Web Services (AWS) &bull; ap-south-1 (Mumbai)</span>
+              </div>
+            </div>
+
+            <div class="academic-row">
+              <div class="academic-item">
+                <span class="item-label">Compute Instance</span>
+                <span class="item-value">AWS EC2 (t3.micro &bull; Ubuntu 22.04 LTS)</span>
+              </div>
+              <div class="academic-item">
+                <span class="item-label">Web Server &bull; Port</span>
+                <span class="item-value">Apache HTTP Server (`apache2`) &bull; Port 80</span>
+              </div>
+            </div>
+
+            <div class="academic-footer-badge">
+              <span>Verified Deployment: HTTP 200 OK on EC2 Public IPv4</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="content-container">
+      <div class="footer-top">
+        <div class="footer-brand-info">
+          <div class="footer-brand-title">
+            <span class="footer-icon">☁️</span>
+            <span>Cloud-Based Website Hosting &amp; Monitoring</span>
+          </div>
+          <p class="footer-desc">
+            A comprehensive second-year B.Tech engineering course project for <strong>Fundamentals of Cloud Computing</strong>.
+            Demonstrating Infrastructure-as-a-Service, web server deployment, and CloudWatch system observability on AWS.
+          </p>
+        </div>
+
+        <div class="footer-nav-col">
+          <h4 class="footer-col-title">Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About Project</a></li>
+            <li><a href="#objectives">Objectives</a></li>
+            <li><a href="#services">AWS Services</a></li>
+            <li><a href="#architecture">Architecture</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-nav-col">
+          <h4 class="footer-col-title">Resources</h4>
+          <ul class="footer-links">
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#tech-stack">Technology Stack</a></li>
+            <li><a href="#monitoring-demo">Telemetry Demo</a></li>
+            <li><a href="#labs">Lab Modules</a></li>
+            <li><a href="#project-info">Project Info</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="copyright-text">
+          &copy; 2026 Fundamentals of Cloud Computing &bull; Academic Coursework Demonstration. All rights reserved.
+        </p>
+        <div class="footer-badge-tag">
+          <span>AWS Free Tier Architecture</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scroll-to-Top Floating Button -->
+  <button class="scroll-top-btn" id="scrollTopBtn" aria-label="Scroll back to top" title="Scroll to top">
+    <span aria-hidden="true">&uarr;</span>
+  </button>
+
+  <!-- Vanilla JavaScript -->
+  <script src="app.js"></script>
+</body>
+
+</html>

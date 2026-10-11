@@ -1,0 +1,148 @@
+{
+  "widgets": [
+    {
+      "type": "text",
+      "x": 0,
+      "y": 0,
+      "width": 24,
+      "height": 3,
+      "properties": {
+        "markdown": "# 🚀 Cloud-Based Website Hosting & Monitoring System Using AWS\n**Course:** Fundamentals of Cloud Computing | **Level:** Second-Year B.Tech Course Project\n**Target Instance:** `fcc-web-server` (`i-0875444197e8dba94`) | **Public IP:** `13.204.82.29` | **Region:** `ap-south-1` (Mumbai)\n**Active Monitoring:** CloudWatch Alarms | Synthetics Headless Canary | Route 53 Global Edge Probes | SNS Email Alerts"
+      }
+    },
+    {
+      "type": "alarm",
+      "x": 0,
+      "y": 3,
+      "width": 8,
+      "height": 6,
+      "properties": {
+        "title": "🚨 Active Health Alarms",
+        "alarms": [
+          "arn:aws:cloudwatch:ap-south-1:319634665438:alarm:HighCPUUtilization-fcc-web-server",
+          "arn:aws:cloudwatch:ap-south-1:319634665438:alarm:fcc-web-server-status-check-failed"
+        ]
+      }
+    },
+    {
+      "type": "metric",
+      "x": 8,
+      "y": 3,
+      "width": 16,
+      "height": 6,
+      "properties": {
+        "title": "⚡ EC2 CPU Utilization (%) with 80% Alarm Threshold",
+        "view": "timeSeries",
+        "stacked": false,
+        "region": "ap-south-1",
+        "period": 300,
+        "stat": "Average",
+        "metrics": [
+          [ "AWS/EC2", "CPUUtilization", "InstanceId", "i-0875444197e8dba94", { "color": "#ff7f0e", "label": "CPU Utilization (%)" } ]
+        ],
+        "annotations": {
+          "horizontal": [
+            {
+              "color": "#d62728",
+              "label": "Alarm Threshold (80%)",
+              "value": 80
+            }
+          ]
+        },
+        "yAxis": {
+          "left": {
+            "min": 0,
+            "max": 100
+          }
+        }
+      }
+    },
+    {
+      "type": "metric",
+      "x": 0,
+      "y": 9,
+      "width": 12,
+      "height": 6,
+      "properties": {
+        "title": "🩺 System & Instance Reachability Checks",
+        "view": "timeSeries",
+        "stacked": false,
+        "region": "ap-south-1",
+        "period": 60,
+        "stat": "Maximum",
+        "metrics": [
+          [ "AWS/EC2", "StatusCheckFailed", "InstanceId", "i-0875444197e8dba94", { "color": "#d62728", "label": "Status Check Failed" } ],
+          [ ".", "StatusCheckFailed_Instance", ".", ".", { "color": "#1f77b4", "label": "Instance Check Failed" } ],
+          [ ".", "StatusCheckFailed_System", ".", ".", { "color": "#2ca02c", "label": "System Check Failed" } ]
+        ],
+        "yAxis": {
+          "left": {
+            "min": 0,
+            "max": 1
+          }
+        }
+      }
+    },
+    {
+      "type": "metric",
+      "x": 12,
+      "y": 9,
+      "width": 12,
+      "height": 6,
+      "properties": {
+        "title": "🌐 Network Ingress & Egress Traffic (Bytes)",
+        "view": "timeSeries",
+        "stacked": false,
+        "region": "ap-south-1",
+        "period": 300,
+        "stat": "Sum",
+        "metrics": [
+          [ "AWS/EC2", "NetworkIn", "InstanceId", "i-0875444197e8dba94", { "color": "#1f77b4", "label": "Network In (Bytes)" } ],
+          [ ".", "NetworkOut", ".", ".", { "color": "#2ca02c", "label": "Network Out (Bytes)" } ]
+        ]
+      }
+    },
+    {
+      "type": "metric",
+      "x": 0,
+      "y": 15,
+      "width": 12,
+      "height": 6,
+      "properties": {
+        "title": "🔍 CloudWatch Synthetics: Canary Availability (%)",
+        "view": "timeSeries",
+        "stacked": false,
+        "region": "ap-south-1",
+        "period": 300,
+        "stat": "Average",
+        "metrics": [
+          [ "CloudWatchSynthetics", "SuccessPercent", "CanaryName", "fcc-uptime-canary", { "color": "#2ca02c", "label": "Canary Success %" } ]
+        ],
+        "yAxis": {
+          "left": {
+            "min": 0,
+            "max": 100
+          }
+        }
+      }
+    },
+    {
+      "type": "metric",
+      "x": 12,
+      "y": 15,
+      "width": 12,
+      "height": 6,
+      "properties": {
+        "title": "⏱️ CloudWatch Synthetics: End-to-End Page Load Duration (ms)",
+        "view": "timeSeries",
+        "stacked": false,
+        "region": "ap-south-1",
+        "period": 300,
+        "stat": "Average",
+        "metrics": [
+          [ "CloudWatchSynthetics", "Duration", "CanaryName", "fcc-uptime-canary", { "color": "#1f77b4", "label": "Page Load Duration (ms)" } ]
+        ]
+      }
+    }
+  ]
+}

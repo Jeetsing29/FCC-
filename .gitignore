@@ -1,0 +1,36 @@
+# AWS credentials and secrets
+*.pem
+*.key
+*.crt
+.env
+.env.*
+cloud-practice.txt
+.aws/
+credentials
+config
+aws_access_key*
+secret*
+secrets/
+*.secret
+*.secrets
+secret.env
+
+# Local key folders
+keys/
+userdata.sh
+
+# Python/cache files
+__pycache__/
+*.pyc
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+
+# Logs
+*.log
+uptime_log.csv
