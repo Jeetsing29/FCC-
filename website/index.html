@@ -29,12 +29,12 @@
       <nav class="nav-menu" id="navMenu" aria-label="Main Navigation">
         <ul class="nav-list">
           <li><a href="#home" class="nav-link active">Home</a></li>
+          <li><a href="#monitoring-demo" class="nav-link">Live Telemetry</a></li>
           <li><a href="#about" class="nav-link">About</a></li>
           <li><a href="#objectives" class="nav-link">Objectives</a></li>
           <li><a href="#services" class="nav-link">AWS Services</a></li>
           <li><a href="#architecture" class="nav-link">Architecture</a></li>
           <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
-          <li><a href="#monitoring-demo" class="nav-link">Live Monitor</a></li>
           <li><a href="#project-info" class="nav-link">Project Info</a></li>
         </ul>
         <div class="mobile-nav-cta">
@@ -79,12 +79,12 @@
             </p>
 
             <div class="hero-cta-group">
-              <a href="#about" class="btn btn-primary btn-lg">
-                <span>Explore Project</span>
+              <a href="#monitoring-demo" class="btn btn-primary btn-lg">
+                <span>View Live Telemetry</span>
                 <span class="btn-arrow" aria-hidden="true">&rarr;</span>
               </a>
-              <a href="#architecture" class="btn btn-secondary btn-lg">
-                <span class="icon-space" aria-hidden="true">🏗️</span> View Architecture
+              <a href="#about" class="btn btn-secondary btn-lg">
+                <span class="icon-space" aria-hidden="true">📖</span> Explore Project
               </a>
             </div>
 
@@ -187,6 +187,144 @@
               <span class="stat-number">CloudWatch</span>
               <span class="stat-title">Real-Time Observability</span>
               <span class="stat-desc">Telemetry metrics and automated alarm triggers</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Interactive Live Telemetry Simulator (Viva Feature) -->
+    <section class="section-block bg-elevated" id="monitoring-demo">
+      <div class="content-container">
+        <div class="section-head text-center">
+          <span class="section-pill">Interactive Live Demo</span>
+          <h2 class="section-heading">EC2 &amp; CloudWatch Telemetry Monitor</h2>
+          <p class="section-subtitle">
+            An interactive live simulation widget showing real-time instance metrics and CloudWatch alarm behavior for college presentations.
+          </p>
+        </div>
+
+        <div class="console-dashboard">
+          <div class="dashboard-topbar">
+            <div class="dashboard-title">
+              <span class="dash-icon">☁️</span>
+              <span class="dash-name">AWS Management Console &bull; Live Telemetry Dashboard</span>
+            </div>
+            <div class="dashboard-controls">
+              <button class="btn btn-sm btn-outline" id="refreshMetricsBtn" aria-label="Refresh telemetry data">
+                <span>🔄</span> Refresh Telemetry
+              </button>
+              <button class="btn btn-sm btn-primary" id="simulateSpikeBtn" aria-label="Simulate traffic spike">
+                <span>⚡</span> Simulate Traffic Spike
+              </button>
+            </div>
+          </div>
+
+          <!-- Banner Row -->
+          <div class="dashboard-instance-row">
+            <div class="inst-info-left">
+              <span class="inst-pulse" id="instanceStatePulse"></span>
+              <div>
+                <span class="inst-label">Instance ID</span>
+                <span class="inst-id" id="instanceIdText">i-0875444197e8dba94</span>
+              </div>
+            </div>
+
+            <div class="inst-tags-right">
+              <div class="inst-chip"><strong>State:</strong> <span class="badge-status-running" id="instanceStateBadge">running</span></div>
+              <div class="inst-chip"><strong>Type:</strong> t3.micro (Free Tier)</div>
+              <div class="inst-chip"><strong>Public IPv4:</strong> 13.204.82.29</div>
+              <div class="inst-chip"><strong>Region:</strong> ap-south-1 (Mumbai)</div>
+              <div class="inst-chip"><strong>Web Server:</strong> Apache/2.4 (Ubuntu)</div>
+            </div>
+          </div>
+
+          <!-- Metrics Row -->
+          <div class="metrics-grid">
+            <!-- CPU Card -->
+            <div class="telemetry-card" id="cpuCard">
+              <div class="telemetry-head">
+                <span class="metric-title">CPU Utilization</span>
+                <span class="status-pill status-ok" id="cpuAlarmBadge">OK (&lt; 80%)</span>
+              </div>
+              <div class="telemetry-value">
+                <span class="val-number" id="cpuNumber">14.8</span><span class="val-unit">%</span>
+              </div>
+              <div class="progress-track">
+                <div class="progress-bar" id="cpuProgress" style="width: 14.8%;"></div>
+              </div>
+              <div class="telemetry-foot">
+                <span>AWS/EC2 Metric</span>
+                <span id="cpuStatusText">Normal Operations</span>
+              </div>
+            </div>
+
+            <!-- Memory Card -->
+            <div class="telemetry-card">
+              <div class="telemetry-head">
+                <span class="metric-title">Memory Allocation</span>
+                <span class="status-pill status-ok">Optimal</span>
+              </div>
+              <div class="telemetry-value">
+                <span class="val-number" id="memNumber">31.2</span><span class="val-unit">%</span>
+              </div>
+              <div class="progress-track">
+                <div class="progress-bar progress-blue" id="memProgress" style="width: 31.2%;"></div>
+              </div>
+              <div class="telemetry-foot">
+                <span>319 MB / 1024 MB</span>
+                <span>1 GiB RAM Total</span>
+              </div>
+            </div>
+
+            <!-- Network Traffic Card -->
+            <div class="telemetry-card">
+              <div class="telemetry-head">
+                <span class="metric-title">Network In / Out</span>
+                <span class="status-pill status-ok">Active</span>
+              </div>
+              <div class="telemetry-value">
+                <span class="val-number" id="netNumber">1.82</span><span class="val-unit">MB/s</span>
+              </div>
+              <div class="progress-track">
+                <div class="progress-bar progress-cyan" id="netProgress" style="width: 25%;"></div>
+              </div>
+              <div class="telemetry-foot">
+                <span>HTTP Port 80 Traffic</span>
+                <span id="packetCount">1,420 pkts/s</span>
+              </div>
+            </div>
+
+            <!-- Status Check Card -->
+            <div class="telemetry-card">
+              <div class="telemetry-head">
+                <span class="metric-title">System Status Checks</span>
+                <span class="status-pill status-ok">Passed</span>
+              </div>
+              <div class="telemetry-value text-green">
+                <span class="val-number" id="healthNumber">2 / 2</span><span class="val-unit">Passed</span>
+              </div>
+              <div class="progress-track">
+                <div class="progress-bar progress-green" style="width: 100%;"></div>
+              </div>
+              <div class="telemetry-foot">
+                <span>System: Reachable</span>
+                <span>Instance: Reachable</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Console Terminal Logs -->
+          <div class="console-logs-wrapper">
+            <div class="logs-header">
+              <span class="log-title">CloudWatch Alarm &amp; Apache Event Telemetry Stream</span>
+              <span class="log-badge-clock" id="terminalClock">Live Stream Active</span>
+            </div>
+            <div class="logs-terminal-window" id="terminalLogs" role="region" aria-label="Terminal Event Logs">
+              <div class="log-entry"><span class="log-time">[14:20:05 UTC]</span> <span class="log-info">[INFO]</span> EC2 instance i-0875444197e8dba94 entered running state in ap-south-1.</div>
+              <div class="log-entry"><span class="log-time">[14:21:40 UTC]</span> <span class="log-success">[STATUS]</span> 2/2 EC2 System &amp; Instance reachability checks PASSED.</div>
+              <div class="log-entry"><span class="log-time">[14:22:48 UTC]</span> <span class="log-info">[APACHE]</span> Apache HTTP server (apache2) active on port 80. Document root /var/www/html.</div>
+              <div class="log-entry"><span class="log-time">[14:23:13 UTC]</span> <span class="log-success">[CLOUDWATCH]</span> Alarm 'HighCPUUtilization-fcc-web-server' transitioned to OK (CPU &lt; 80.0%).</div>
             </div>
           </div>
         </div>
@@ -737,146 +875,8 @@
       </div>
     </section>
 
-    <!-- Section: Interactive Live Telemetry Simulator (Viva Feature) -->
-    <section class="section-block" id="monitoring-demo">
-      <div class="content-container">
-        <div class="section-head text-center">
-          <span class="section-pill">Interactive Live Demo</span>
-          <h2 class="section-heading">EC2 &amp; CloudWatch Telemetry Monitor</h2>
-          <p class="section-subtitle">
-            An interactive live simulation widget showing real-time instance metrics and CloudWatch alarm behavior for college presentations.
-          </p>
-        </div>
-
-        <div class="console-dashboard">
-          <div class="dashboard-topbar">
-            <div class="dashboard-title">
-              <span class="dash-icon">☁️</span>
-              <span class="dash-name">AWS Management Console &bull; Live Telemetry Dashboard</span>
-            </div>
-            <div class="dashboard-controls">
-              <button class="btn btn-sm btn-outline" id="refreshMetricsBtn" aria-label="Refresh telemetry data">
-                <span>🔄</span> Refresh Telemetry
-              </button>
-              <button class="btn btn-sm btn-primary" id="simulateSpikeBtn" aria-label="Simulate traffic spike">
-                <span>⚡</span> Simulate Traffic Spike
-              </button>
-            </div>
-          </div>
-
-          <!-- Banner Row -->
-          <div class="dashboard-instance-row">
-            <div class="inst-info-left">
-              <span class="inst-pulse" id="instanceStatePulse"></span>
-              <div>
-                <span class="inst-label">Instance ID</span>
-                <span class="inst-id" id="instanceIdText">i-0875444197e8dba94</span>
-              </div>
-            </div>
-
-            <div class="inst-tags-right">
-              <div class="inst-chip"><strong>State:</strong> <span class="badge-status-running" id="instanceStateBadge">running</span></div>
-              <div class="inst-chip"><strong>Type:</strong> t3.micro (Free Tier)</div>
-              <div class="inst-chip"><strong>Public IPv4:</strong> 13.204.82.29</div>
-              <div class="inst-chip"><strong>Region:</strong> ap-south-1 (Mumbai)</div>
-              <div class="inst-chip"><strong>Web Server:</strong> Apache/2.4 (Ubuntu)</div>
-            </div>
-          </div>
-
-          <!-- Metrics Row -->
-          <div class="metrics-grid">
-            <!-- CPU Card -->
-            <div class="telemetry-card" id="cpuCard">
-              <div class="telemetry-head">
-                <span class="metric-title">CPU Utilization</span>
-                <span class="status-pill status-ok" id="cpuAlarmBadge">OK (&lt; 80%)</span>
-              </div>
-              <div class="telemetry-value">
-                <span class="val-number" id="cpuNumber">14.8</span><span class="val-unit">%</span>
-              </div>
-              <div class="progress-track">
-                <div class="progress-bar" id="cpuProgress" style="width: 14.8%;"></div>
-              </div>
-              <div class="telemetry-foot">
-                <span>AWS/EC2 Metric</span>
-                <span id="cpuStatusText">Normal Operations</span>
-              </div>
-            </div>
-
-            <!-- Memory Card -->
-            <div class="telemetry-card">
-              <div class="telemetry-head">
-                <span class="metric-title">Memory Allocation</span>
-                <span class="status-pill status-ok">Optimal</span>
-              </div>
-              <div class="telemetry-value">
-                <span class="val-number" id="memNumber">31.2</span><span class="val-unit">%</span>
-              </div>
-              <div class="progress-track">
-                <div class="progress-bar progress-blue" id="memProgress" style="width: 31.2%;"></div>
-              </div>
-              <div class="telemetry-foot">
-                <span>319 MB / 1024 MB</span>
-                <span>1 GiB RAM Total</span>
-              </div>
-            </div>
-
-            <!-- Network Traffic Card -->
-            <div class="telemetry-card">
-              <div class="telemetry-head">
-                <span class="metric-title">Network In / Out</span>
-                <span class="status-pill status-ok">Active</span>
-              </div>
-              <div class="telemetry-value">
-                <span class="val-number" id="netNumber">1.82</span><span class="val-unit">MB/s</span>
-              </div>
-              <div class="progress-track">
-                <div class="progress-bar progress-cyan" id="netProgress" style="width: 25%;"></div>
-              </div>
-              <div class="telemetry-foot">
-                <span>HTTP Port 80 Traffic</span>
-                <span id="packetCount">1,420 pkts/s</span>
-              </div>
-            </div>
-
-            <!-- Status Check Card -->
-            <div class="telemetry-card">
-              <div class="telemetry-head">
-                <span class="metric-title">System Status Checks</span>
-                <span class="status-pill status-ok">Passed</span>
-              </div>
-              <div class="telemetry-value text-green">
-                <span class="val-number" id="healthNumber">2 / 2</span><span class="val-unit">Passed</span>
-              </div>
-              <div class="progress-track">
-                <div class="progress-bar progress-green" style="width: 100%;"></div>
-              </div>
-              <div class="telemetry-foot">
-                <span>System: Reachable</span>
-                <span>Instance: Reachable</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Console Terminal Logs -->
-          <div class="console-logs-wrapper">
-            <div class="logs-header">
-              <span class="log-title">CloudWatch Alarm &amp; Apache Event Telemetry Stream</span>
-              <span class="log-badge-clock" id="terminalClock">Live Stream Active</span>
-            </div>
-            <div class="logs-terminal-window" id="terminalLogs" role="region" aria-label="Terminal Event Logs">
-              <div class="log-entry"><span class="log-time">[14:20:05 UTC]</span> <span class="log-info">[INFO]</span> EC2 instance i-0875444197e8dba94 entered running state in ap-south-1.</div>
-              <div class="log-entry"><span class="log-time">[14:21:40 UTC]</span> <span class="log-success">[STATUS]</span> 2/2 EC2 System &amp; Instance reachability checks PASSED.</div>
-              <div class="log-entry"><span class="log-time">[14:22:48 UTC]</span> <span class="log-info">[APACHE]</span> Apache HTTP server (apache2) active on port 80. Document root /var/www/html.</div>
-              <div class="log-entry"><span class="log-time">[14:23:13 UTC]</span> <span class="log-success">[CLOUDWATCH]</span> Alarm 'HighCPUUtilization-fcc-web-server' transitioned to OK (CPU &lt; 80.0%).</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- Section: Course Labs & Evidence (Retaining existing functionality) -->
-    <section class="section-block bg-elevated" id="labs">
+    <section class="section-block" id="labs">
       <div class="content-container">
         <div class="section-head text-center">
           <span class="section-pill">Hands-On Labs</span>
@@ -945,7 +945,7 @@
     </section>
 
     <!-- Section: Contact / Project Info -->
-    <section class="section-block" id="project-info">
+    <section class="section-block bg-elevated" id="project-info">
       <div class="content-container">
         <div class="section-head text-center">
           <span class="section-pill">Project Information</span>

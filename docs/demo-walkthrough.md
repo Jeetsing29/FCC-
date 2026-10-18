@@ -54,8 +54,8 @@ Before calling your faculty or course guide to your screen, open these tabs in y
 > *If you look at the **Live Telemetry Terminal** right here on the homepage, whenever a real visitor opens this page, it measures the exact **Client TTFB (Time to First Byte)** and **DOM Ready Latency**."*
 
 **Interactive Action:**
-1. Scroll down to the **Live CloudWatch Telemetry Simulator**.
-2. Click the orange **"Simulate CPU Spike"** button.
+1. Click the **"Live Telemetry"** tab in the navbar (or scroll just below the hero fold between Home and About) to the **Live CloudWatch Telemetry Simulator**.
+2. Click the orange **"Simulate Traffic Spike"** button.
 3. Show the gauge jump into red (`ALARM: CPU > 80%`), log elevated traffic, and announce that Amazon SNS has dispatched an alert email.
 4. Watch it automatically cool down back to normal green (`OK`) after 7 seconds.
 
